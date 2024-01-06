@@ -15,7 +15,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	//  Set bool variables, including
 	//  supporting analysis by stdlib
 	// ===============================
-	gotRootElm, rootMsg := (pXP.ContentityBasics.HasRootTag())
+	gotRootElm, rootMsg := (pXP.ContentityBasics.CheckTopTags())
 	gotDoctype := (pXP.DoctypeRaw != "")
 	gotPreambl := (pXP.PreambleRaw != "")
 	L.L.Dbg("DoAnalysis_xml: DT<%s> Prmbl<%s>",
