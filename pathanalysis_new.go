@@ -208,7 +208,7 @@ func NewPathAnalysis(pPP *FU.PathProps) (*PathAnalysis, error) {
 	//      L.L.Panic("XML confusion (case #2) in AnalyzeFile")
 	// }
 	var hasRootTag, gotSomeXml bool
-	hasRootTag, _ = pPeek.ContentityBasics.HasRootTag()
+	hasRootTag, _ = pPeek.ContentityBasics.CheckTopTags()
 	gotSomeXml = hasRootTag || (pPeek.DoctypeRaw != "") ||
 		(pPeek.PreambleRaw != "")
 	// =============================

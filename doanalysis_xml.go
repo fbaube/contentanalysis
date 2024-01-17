@@ -15,7 +15,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	//  Set bool variables, including
 	//  supporting analysis by stdlib
 	// ===============================
-	gotRootElm, rootMsg := (pXP.ContentityBasics.CheckTopTags())
+	gotRootElm, tagsMsg := (pXP.ContentityBasics.CheckTopTags())
 	gotDoctype := (pXP.DoctypeRaw != "")
 	gotPreambl := (pXP.PreambleRaw != "")
 	L.L.Dbg("DoAnalysis_xml: DT<%s> Prmbl<%s>",
@@ -39,8 +39,8 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		}
 		L.L.Progress("Is XML: found: %s%s%s%s", sP, sD, sR, sDtd)
 		//fmt.Printf("Is XML: found: %s%s%s%s \n", sP, sD, sR, sDtd)
-		if rootMsg != "" {
-			L.L.Warning("Is XML (rootMsg): " + rootMsg)
+		if tagsMsg != "" {
+			L.L.Info("Is XML (root/tags msg): " + tagsMsg)
 		}
 	}
 	if !(gotRootElm || pXP.HasDTDstuff) {
