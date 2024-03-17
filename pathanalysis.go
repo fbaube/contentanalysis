@@ -78,6 +78,6 @@ func (p PathAnalysis) MarkupType() SU.MarkupType {
 	if S.HasPrefix(p.MType, "bin/") {
 		return SU.MU_type_BIN // opaque
 	}
-	fmt.Printf("fu.pa.muType: failed on: <%s> \n", p.MType)
+	fmt.Printf("ca.pa.MarkupType: failed (isDir?) on: %s \n", p.MType)
 	return SU.MU_type_UNK
 }
