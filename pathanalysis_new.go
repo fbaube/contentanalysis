@@ -40,10 +40,10 @@ import (
 // return (nil, nil) to indicate that there is not enough content to
 // do anything informative with.
 // .
-func NewPathAnalysis(pPP *FU.PathProps) (*PathAnalysis, error) {
+func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	var sCont string
-	sCont = string(pPP.Raw)
-	filext := FP.Ext(pPP.AbsFP.S())
+	sCont = string(pFSI.Raw)
+	filext := FP.Ext(pFSI.FPs.AbsFP.S())
 
 	// A trailing dot in the filename provides no filetype info.
 	filext = FP.Ext(filext)

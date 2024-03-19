@@ -11,18 +11,15 @@ type Doctype string
 type MimeType string
 
 // PathAnalysis is the results of content analysis
-// on the contents of the embedded [PathProps].
+// on the contents of a non-embedded [FSItem].
 // .
 type PathAnalysis struct { // this has has Raw
-	// PathProps is a ptr, so that we get a
-	// NPE if it is not initialized properly.
-	// WRONG WRONG WRONG *PathProps // this has Raw
 	// ContypingInfo is simple fields:
 	// FileExt MType MimeType's
 	XU.ContypingInfo
-	// ContentityBasics includes Raw
+	// ContentityBasics does NOT include Raw
 	// (the entire input content)
-	XU.ContentityBasics // has Raw
+	XU.ContentityBasics 
 	// KeyElms is: (Root,Meta,Text)ElmExtent
 	// KeyElmsWithRanges
 	// ContentitySections is: Text_raw, Meta_raw, MetaFormat; MetaProps SU.PropSet
