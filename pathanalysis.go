@@ -1,9 +1,10 @@
 package contentanalysis
 
 import (
-	"fmt"
+	// "fmt"
 	SU "github.com/fbaube/stringutils"
 	XU "github.com/fbaube/xmlutils"
+	L "github.com/fbaube/mlog"
 	S "strings"
 )
 
@@ -42,14 +43,12 @@ type PathAnalysis struct { // this has has Raw
 
 // IsXML is true for all XML, including all HTML.
 func (p PathAnalysis) IsXML() bool {
-	s := p.MarkupType()
+	s := p.MarkupTypeOfMType()
 	return s == SU.MU_type_XML || s == SU.MU_type_HTML
 }
 
-// MarkupType returns an enum with values of "XML",
-// "MKDN", "HTML", "UNK", or future stuff TBD.
-// .
-func (p PathAnalysis) MarkupType() SU.MarkupType {
+// MarkupType returns an enum with values of SU.MU_type_*
+func (p PathAnalysis) MarkupTypeOfMType() SU.MarkupType {
 	// HTML is an exceptional case
 	if S.HasPrefix(p.MType, "xml/html/") {
 		return SU.MU_type_HTML
@@ -75,6 +74,13 @@ func (p PathAnalysis) MarkupType() SU.MarkupType {
 	if S.HasPrefix(p.MType, "bin/") {
 		return SU.MU_type_BIN // opaque
 	}
-	fmt.Printf("ca.pa.MarkupType: failed (isDir?) on: %s \n", p.MType)
+	if S.HasPrefix(p.MType, "dir") || S.HasPrefix(p.MType, "DIR") {
+		return SU.MU_type_DIRLIKE 
+	}
+	if p.MType == "" { 
+		return SU.MU_type_DIRLIKE 
+	}
+	// panic("UNK!")
+	L.L.Error("ca.pa.MarkupTypeOfMType: failed (isDir?) on: %s", p.MType)
 	return SU.MU_type_UNK
 }

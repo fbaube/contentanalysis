@@ -31,18 +31,19 @@ import (
 //   - Everything else (incl. plain text,
 //     Markdown, and XML/HTML that lacks DOCTYPE)
 //
-// The second argument "filext" can be any filepath; the Go stdlib
-// is used to split off the file extension. It can also be "", if
-// (for example) the content is entered interactively, without a
-// file name or already-determined MIME type.
+// If the argument is "dirlike" (dir, symlink, etc.), return (nil, nil).
 //
 // If the first argument "sCont" (the content) is less than six bytes,
 // return (nil, nil) to indicate that there is not enough content to
 // do anything informative with.
 // .
 func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
+     	// If it's not a file, GTFO
+	if pFSI.IsDirlike() {
+	   return nil, nil
+	}
 	var sCont string
-	sCont = string(pFSI.Raw)
+	sCont = string(pFSI.TypedRaw.Raw)
 	filext := FP.Ext(pFSI.FPs.AbsFP.S())
 
 	// A trailing dot in the filename provides no filetype info.

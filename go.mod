@@ -5,8 +5,8 @@ go 1.22
 toolchain go1.22.0
 
 require (
-	github.com/fbaube/ctoken v0.0.0-20240318064251-0d73030038b5
-	github.com/fbaube/fileutils v0.0.0-20240319103908-a02f921e7413
+	github.com/fbaube/ctoken v0.0.0-20240320075402-d501c60baf3e
+	github.com/fbaube/fileutils v0.0.0-20240321184736-e74b758e4e0d
 	github.com/fbaube/mlog v0.0.0-20230904080411-cfac35fed413
 	github.com/fbaube/stringutils v0.0.0-20240318064103-bf7b5a2b5f11
 	github.com/fbaube/xmlutils v0.0.0-20240117103856-0d26c14e3769
