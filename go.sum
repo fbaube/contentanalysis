@@ -10,6 +10,8 @@ github.com/fbaube/ctoken v0.0.0-20240320063444-9a7fe8d7e65c h1:DraGyMPGB1xz79HJc
 github.com/fbaube/ctoken v0.0.0-20240320063444-9a7fe8d7e65c/go.mod h1:MzaCWuPd7bek9dVfpVC6hamdoKfyTctcWvBqdTEQUo0=
 github.com/fbaube/ctoken v0.0.0-20240320075402-d501c60baf3e h1:z6Hrve1dnPW+BSyCI3CYsjR/2fEm8zpWR3tueFtXCto=
 github.com/fbaube/ctoken v0.0.0-20240320075402-d501c60baf3e/go.mod h1:MzaCWuPd7bek9dVfpVC6hamdoKfyTctcWvBqdTEQUo0=
+github.com/fbaube/ctoken v0.0.0-20240322195920-6d5d80a301ae h1:ioBl2WQrh60rjuaIW/lWUaOnMLTi3XJj6ey7gl4k+Vs=
+github.com/fbaube/ctoken v0.0.0-20240322195920-6d5d80a301ae/go.mod h1:70q1hRIa5HaLKfWVnc41/8vDqbQwRIl0k6rCEG2s4ww=
 github.com/fbaube/fileutils v0.0.0-20231218210156-f6a37eab1eae h1:zU2TS8foMExseNqJE/vnlkoEzMzJhqsqSL8A02S2vuM=
 github.com/fbaube/fileutils v0.0.0-20231218210156-f6a37eab1eae/go.mod h1:zCfNLrBn2uhhdt6rzsNFrV/iwLcVKub1kubC+wi3Zas=
 github.com/fbaube/fileutils v0.0.0-20240313201955-760dba24347d h1:JKS20L1OCCZRkLzqPO/TvzJgALKrDxKDrapDOq3A7F4=
@@ -22,6 +24,12 @@ github.com/fbaube/fileutils v0.0.0-20240319151704-74389d18b489 h1:22zT9gphKNzpMR
 github.com/fbaube/fileutils v0.0.0-20240319151704-74389d18b489/go.mod h1:2QpF645f8zzudiJBh7agf/nI8cil7Cel5RLqb2wTSp4=
 github.com/fbaube/fileutils v0.0.0-20240321184736-e74b758e4e0d h1:JUQhIbMw0hhMp4PSmq6IVlyJdSGt9gMYC0r3whTgk1U=
 github.com/fbaube/fileutils v0.0.0-20240321184736-e74b758e4e0d/go.mod h1:2S3eE5mz+17RSb7T/5fn3A0LbHN14T/gftJtFIK7mFA=
+github.com/fbaube/fileutils v0.0.0-20240322195951-f7eac492460a h1:X1NIo9FY9Rm//3BcnYJf1Eyx/NYFNVaVmVODoeIhIuo=
+github.com/fbaube/fileutils v0.0.0-20240322195951-f7eac492460a/go.mod h1:2S3eE5mz+17RSb7T/5fn3A0LbHN14T/gftJtFIK7mFA=
+github.com/fbaube/fileutils v0.0.0-20240325105828-dd11185097a9 h1:QYnX2CE/LdiYWZLsP0OZIORe1T5DLJyPvIAAuINde+w=
+github.com/fbaube/fileutils v0.0.0-20240325105828-dd11185097a9/go.mod h1:Lz2/eUvVeFg1Alb90F0khxrhLR1ujclRNfEHSjBkkL0=
+github.com/fbaube/fileutils v0.0.0-20240325110318-0c80a6fa64f5 h1:RJ1zhFfL6+aSGYcW1C+hmHNtrKp/up7huE6rlETbb/o=
+github.com/fbaube/fileutils v0.0.0-20240325110318-0c80a6fa64f5/go.mod h1:Lz2/eUvVeFg1Alb90F0khxrhLR1ujclRNfEHSjBkkL0=
 github.com/fbaube/humanbytes v0.0.0-20240227103335-a0b11501ad0e h1:2lRZ3QxDYaZ9F7RXLSL3zugdmeQTGOrRddBk+RVTRY0=
 github.com/fbaube/humanbytes v0.0.0-20240227103335-a0b11501ad0e/go.mod h1:WUS3tn4t+FViNsl4VOqYiV51cJNIIeMjLI9fOfm+Ug8=
 github.com/fbaube/logutils v0.0.0-20240118190821-fba0e702dd07 h1:pnt16LF2Gq3myuCjvsTRqc6KUUquBD+gIV9YKHsH+qw=
@@ -38,10 +46,14 @@ github.com/fbaube/stringutils v0.0.0-20240227182912-df670eade115 h1:MKnHqf56QnMg
 github.com/fbaube/stringutils v0.0.0-20240227182912-df670eade115/go.mod h1:WCZlSHSWEOj/EaoxrmOcLVuXKuCGKfods14j1RS1JrY=
 github.com/fbaube/stringutils v0.0.0-20240318064103-bf7b5a2b5f11 h1:SbTSSAz6W2bk6A7J4nbrQxSoSQQfwnPu4v8vT/4eO9c=
 github.com/fbaube/stringutils v0.0.0-20240318064103-bf7b5a2b5f11/go.mod h1:5GRMKxtq6rUel/Pwfr7VG0eHVBPITL1UCsHyGHhTo8U=
+github.com/fbaube/stringutils v0.0.0-20240322200159-80cb818c8713 h1:GFdzfzrMWL6CktOMF3WNHsGVYkZG3WqHSieczE2gSSw=
+github.com/fbaube/stringutils v0.0.0-20240322200159-80cb818c8713/go.mod h1:5GRMKxtq6rUel/Pwfr7VG0eHVBPITL1UCsHyGHhTo8U=
 github.com/fbaube/wasmutils v0.0.0-20231209183154-e25018375bc2 h1:c2o0/6fIdaGD9G84GUFg41qHYPWqfKO0HD8G9KLJQH4=
 github.com/fbaube/wasmutils v0.0.0-20231209183154-e25018375bc2/go.mod h1:Yv24ab7DbaTunolfMWqQVI0g8yCNFu8y5IHxLbwZ0ZE=
 github.com/fbaube/xmlutils v0.0.0-20240117103856-0d26c14e3769 h1:Y0yeQ+Vv3Z4NN4ulKkVAZggtm1+SK4scJJxn1qbq77Y=
 github.com/fbaube/xmlutils v0.0.0-20240117103856-0d26c14e3769/go.mod h1:gsCwBzyR+nb9tdfJRL6aVTd9Fvuj/0R/tDM+seGxP8w=
+github.com/fbaube/xmlutils v0.0.0-20240322200140-f0ad2fb0183d h1:9wjVLMYL33nmyMDGxdR7s1EocHhQ9mh852G/s9fmV0g=
+github.com/fbaube/xmlutils v0.0.0-20240322200140-f0ad2fb0183d/go.mod h1:fC43BwdKJgvUUfij+oAbm78Gy+FRbGbmi1s3UgZha0E=
 github.com/gabriel-vasile/mimetype v1.4.3 h1:in2uUcidCuFcDKtdcBxlR0rJ1+fsokWf+uqxgUFjbI0=
 github.com/gabriel-vasile/mimetype v1.4.3/go.mod h1:d8uq/6HKRL6CGdk+aubisF/M5GcPfT7nKyLpA0lbSSk=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
@@ -59,6 +71,8 @@ golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f h1:3CW0unweImhOzd5FmYuRsD4Y4
 golang.org/x/exp v0.0.0-20240314144324-c7f7c6466f7f/go.mod h1:CxmFvTBINI24O/j8iY7H1xHzx2i4OsyguNBmN/uPtqc=
 golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81 h1:6R2FC06FonbXQ8pK11/PDFY6N6LWlf9KlzibaCapmqc=
 golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81/go.mod h1:CQ1k9gNrJ50XIzaKCRR2hssIjF07kZFEiieALBM/ARQ=
+golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8 h1:aAcj0Da7eBAtrTp03QXWvm88pSyOt+UgdZw2BFZ+lEw=
+golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8/go.mod h1:CQ1k9gNrJ50XIzaKCRR2hssIjF07kZFEiieALBM/ARQ=
 golang.org/x/net v0.20.0 h1:aCL9BSgETF1k+blQaYUBx9hJ9LOGP3gAVemcZlf1Kpo=
 golang.org/x/net v0.20.0/go.mod h1:z8BVo6PvndSri0LbOE3hAn0apkU+1YvI6E70E9jsnvY=
 golang.org/x/net v0.21.0 h1:AQyQV4dYCvJ7vGmJyKki9+PBdyvhkSd8EIx/qb0AYv4=

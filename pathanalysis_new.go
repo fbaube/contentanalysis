@@ -57,16 +57,17 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===========================
 	if len(sCont) < 6 {
 		if sCont == "" {
-			L.L.Progress("DoAnalysis: skipping zero-length content")
+			L.L.Progress("NewPathAnalysis: skipping zero-length content")
 		} else {
-			L.L.Warning("DoAnalysis: content too short (%d bytes)", len(sCont))
+			L.L.Warning("DNewPathnalysis: content too short (%d bytes)", len(sCont))
 		}
 		p := new(PathAnalysis)
 		p.FileExt = filext
-		// return nil, errors.New(fmt.Sprintf("content is too short (%d bytes) to analyse", len(sCont)))
+		// return nil, errors.New(fmt.Sprintf(
+		//    "content is too short (%d bytes) to analyse", len(sCont)))
 		return p, nil
 	}
-	L.L.Dbg("(AF) filext<%s> len<%d> beg<%s>",
+	L.L.Dbg("NewPathAnalysis: filext<%s> len<%d> beg<%s>",
 		filext, len(sCont), sCont[:5])
 
 	// ========================
@@ -92,10 +93,10 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 		L.L.Warning("Content type from lib_3p " +
 			"(still) has a semicolon: " + contype)
 	}
-	// ================================
-	//  Also do content type detection
-	//  using http stdlib (unreliable!)
-	// ================================
+	// ======================================
+	//  Also do content type detection using
+	//     HTTP stdlib (this is UNRELIABLE!)
+	// ======================================
 	var stdlib_contype string
 	stdlib_contype = http.DetectContentType([]byte(sCont))
 	stdlib_contype = S.TrimSuffix(stdlib_contype, "; charset=utf-8")
@@ -107,10 +108,10 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	//  Warn if they do not agree
 	// ===========================
 	if stdlib_contype != contype {
-		L.L.Warning("(AF) MIME type: lib_3p<%s> v stdlib<%s>",
+		L.L.Warning("NPA: MIME type: lib_3p<%s> != stdlib<%s>",
 			contype, stdlib_contype)
 	}
-	L.L.Info("(NPA) <%s> snift-as: %s", filext, contype)
+	L.L.Info("NPA: MIME: <%s> 2x-snift-as: %s", filext, contype)
 	// =====================================
 	// INITIALIZE ANALYSIS RECORD:
 	// pAnlRec is *xmlutils.PathAnalysis
@@ -142,12 +143,12 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	}
 	// Warn if they disagree
 	if stdlib_isBinary != isBinary {
-		L.L.Warning("(NPA) is-binary: lib_3p <%t> v stdlib <%t> ",
-			isBinary, stdlib_isBinary)
+		L.L.Warning("NPA: MIME: problem: is-binary: lib_3p <%t> " +
+			"!= stdlib <%t>", isBinary, stdlib_isBinary)
 	}
 	if isBinary {
 		if cheatYaml || cheatXml || cheatHtml {
-			L.L.Panic("(NPA) both is-Binary & is-Yaml/Xml")
+			L.L.Panic("NPA: both is-Binary & is-Yaml/Xml")
 		}
 		return pPA, pPA.DoAnalysis_bin()
 	}
@@ -166,10 +167,10 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 		if !mIsXml {
 			mS = "Not-"
 		}
-		L.L.Info("(NPA) lib_3p (is-%sXML) %s", // \n\t\t stdlib (is-%sXML) %s",
+		L.L.Info("NPA: lib_3p (is-%sXML) %s", // \n\t\t stdlib (is-%sXML) %s",
 			mS, mMsg) // , hS, hMsg)
 	} else {
-		L.L.Info("(NPA) XML not detected by either MIME lib")
+		L.L.Info("NPA: XML not detected by either MIME lib")
 	}
 	// ===================================
 	//  MAIN XML PRELIMINARY ANALYSIS:
@@ -190,7 +191,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// by, for example, applying XML parsing to a
 	// Markdown file. So, an error is NOT fatal.
 	if e != nil {
-		L.L.Info("(NPA) XML parsing got error: " + e.Error())
+		L.L.Info("NPA: XML parsing got error: " + e.Error())
 		xmlParsingFailed = true
 	}
 	// ===============================
@@ -202,7 +203,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	}
 	// Check for pathological cases
 	if xmlParsingFailed && mIsXml { // (hIsXml || mIsXml) {
-		L.L.Panic("(NPA) XML confusion (case #1) in DoAnalysis")
+		L.L.Panic("NPA: XML confusion (case #1) in DoAnalysis")
 	}
 	// Note that this next test dusnt always work for Markdown!
 	// if (!xmlParsingFailed) && (! (hIsXml || mIsXml)) {
