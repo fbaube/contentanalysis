@@ -40,7 +40,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		L.L.Progress("Is XML: found: %s%s%s%s", sP, sD, sR, sDtd)
 		//fmt.Printf("Is XML: found: %s%s%s%s \n", sP, sD, sR, sDtd)
 		if tagsMsg != "" {
-			L.L.Info("Is XML (root/tags msg): " + tagsMsg)
+			L.L.Info("DoAnalysisXml: " + tagsMsg)
 		}
 	}
 	if !(gotRootElm || pXP.HasDTDstuff) {
