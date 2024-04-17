@@ -31,11 +31,12 @@ import (
 //   - Everything else (incl. plain text,
 //     Markdown, and XML/HTML that lacks DOCTYPE)
 //
-// If the argument is "dirlike" (dir, symlink, etc.), return (nil, nil).
+// If the argument is "dirlike" (dir, symlink, etc.), 
+// then NewPathAnalysis returns (nil, nil).
 //
 // If the first argument "sCont" (the content) is less than six bytes,
-// return (nil, nil) to indicate that there is not enough content to
-// do anything informative with.
+// return (nil, nil) to indicate that there is not enough content with
+// which to do anything productive or informative. 
 // .
 func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
      	// If it's not a file, GTFO
@@ -108,10 +109,11 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	//  Warn if they do not agree
 	// ===========================
 	if stdlib_contype != contype {
-		L.L.Warning("NPA: MIME type: lib_3p<%s> != stdlib<%s>",
-			contype, stdlib_contype)
+		L.L.Warning("NPA<%s>: MIME type: lib_3p<%s>OK?, stdlib<%s>Bad?",
+			filext, contype, stdlib_contype)
+	} else {
+	  L.L.Info("NPA<%s>: MIME type: snift-as: %s", filext, contype)
 	}
-	L.L.Info("NPA: MIME: <%s> 2x-snift-as: %s", filext, contype)
 	// =====================================
 	// INITIALIZE ANALYSIS RECORD:
 	// pAnlRec is *xmlutils.PathAnalysis
@@ -122,9 +124,6 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// =====================================
 	var pPA *PathAnalysis
 	pPA = new(PathAnalysis)
-	// 2023.02 take struct PathProps out of struct PathAnalysis
-	// pAnlRec.PathProps = new(PathProps)
-	// pAnlRec.PathProps.Raw = sCont
 	pPA.FileExt = filext
 	pPA.MimeType = stdlib_contype // Junk this ?
 	pPA.MimeTypeAsSnift = contype
@@ -143,12 +142,12 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	}
 	// Warn if they disagree
 	if stdlib_isBinary != isBinary {
-		L.L.Warning("NPA: MIME: problem: is-binary: lib_3p <%t> " +
-			"!= stdlib <%t>", isBinary, stdlib_isBinary)
+		L.L.Warning("NPA<%s>: MIME type: stdlib err, " +
+			"says is-binary: <%t>", filext, stdlib_isBinary)
 	}
 	if isBinary {
 		if cheatYaml || cheatXml || cheatHtml {
-			L.L.Panic("NPA: both is-Binary & is-Yaml/Xml")
+			L.L.Error("NPA: both is-Binary & is-Yaml/Xml")
 		}
 		return pPA, pPA.DoAnalysis_bin()
 	}
@@ -180,7 +179,6 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	var xmlParsingFailed bool
 	var pPeek *XU.XmlPeek
 	var e error
-
 	// ==============================
 	//  Peek for XML; this also sets
 	//  KeyElms (Root,Meta,Text)
@@ -227,5 +225,6 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===========================================
 	//  It's XML, so crank thru it and we're done
 	// ===========================================
+	L.L.Dbg("Now passing off to DoAnalysis_xml: Peek: %+v", *pPeek) 
 	return pPA, pPA.DoAnalysis_xml(pPeek, sCont)
 }

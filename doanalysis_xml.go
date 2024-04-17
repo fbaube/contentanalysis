@@ -18,7 +18,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	gotRootElm, tagsMsg := (pXP.ContentityBasics.CheckTopTags())
 	gotDoctype := (pXP.DoctypeRaw != "")
 	gotPreambl := (pXP.PreambleRaw != "")
-	L.L.Dbg("DoAnalysis_xml: DT<%s> Prmbl<%s>",
+	L.L.Dbg("DoAnalysis_xml: Dctp<%s> Prmbl<%s>",
 		pXP.DoctypeRaw, pXP.PreambleRaw)
 	// gotSomeXml := (gotRootElm || gotDoctype || gotPreambl)
 	// Write a progress string
@@ -60,7 +60,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	// ================================
 	//  Time to do some heavy lifting.
 	// ================================
-	L.L.Progress("(AF) Now split the file")
+	L.L.Progress("(DoAnalysisXml) Now split the file")
 	if sCont == "" { // pAR.PathProps.Raw == "" {
 		L.L.Error("(AF) XML has nil Raw")
 	}
@@ -99,14 +99,14 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		L.L.Warning("====")
 		*/
 		if pAR.MType == "" {
-			L.L.Panic("(AF) no MType, L362")
+			L.L.Panic("(AF) no MType, L103")
 		}
 		if pAR.MType == "" {
-			L.L.Panic("(AF) no MType, L367")
+			L.L.Panic("(AF) no MType, L106")
 		}
 		L.L.Okay("(AF) Success: got XML with DOCTYPE")
 		// HACK ALERT
-		if S.HasSuffix(pAR.MType, "---") {
+		if /* IS_MAP || */ S.HasSuffix(pAR.MType, "---") {
 			rutag := S.ToLower(pXP.XmlRoot.TagName)
 			if pAR.MType == "xml/map/---" {
 				pAR.MType = "xml/map/" + rutag
@@ -128,8 +128,12 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	//  We have a root tag and a file extension.
 	// ==========================================
 	rutag := S.ToLower(pXP.XmlRoot.TagName)
-	L.L.Progress("(AF) XML without DOCTYPE: <%s> root<%s> MType<%s>",
-		filext, rutag, pAR.MType)
+	IS_MAP := ("map" == pXP.XmlRoot.TagName)
+	L.L.Progress("(AF) XML without DOCTYPE: <%s> root<%s> MType<%s> isMap<%>",
+		filext, rutag, pAR.MType, IS_MAP)
+	if pAR.MType == "" {
+	   L.L.Info("XML without DOCTYPE has no MType assigned yet")
+	   }
 	// Do some easy cases
 	if rutag == "html" && (filext == ".html" || filext == ".htm") {
 		pAR.MType = "html/cnt/html5"
@@ -138,7 +142,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	} else if SU.IsInSliceIgnoreCase(rutag, XU.DITArootElms) &&
 		SU.IsInSliceIgnoreCase(filext, XU.DITAtypeFileExtensions) {
 		pAR.MType = "xml/cnt/" + rutag
-		if rutag == "bookmap" && S.HasSuffix(filext, "map") {
+		if S.HasSuffix(rutag, "map") && S.HasSuffix(filext, "map") {
 			pAR.MType = "xml/map/" + rutag
 		}
 	}
