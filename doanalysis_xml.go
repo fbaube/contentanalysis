@@ -18,8 +18,10 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	gotRootElm, tagsMsg := (pXP.ContentityBasics.CheckTopTags())
 	gotDoctype := (pXP.DoctypeRaw != "")
 	gotPreambl := (pXP.PreambleRaw != "")
-	L.L.Dbg("DoAnalysis_xml: Dctp<%s> Prmbl<%s>",
+	L.L.Dbg("DoAnalysis_xml: raw: Dctp<%s> Prmbl<%s>",
 		pXP.DoctypeRaw, pXP.PreambleRaw)
+	/* L.L.Warning("DoAnalysis_xml: raw: Dctp<%s> Prmbl<%s>",
+		pXP.DoctypeRaw, pXP.PreambleRaw) */
 	// gotSomeXml := (gotRootElm || gotDoctype || gotPreambl)
 	// Write a progress string
 	/* if true */
@@ -29,7 +31,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 			sP = "<?xml..> "
 		}
 		if gotDoctype {
-			sD = "<DOCTYPE..> "
+			sD = "<!DOCTYPE..> "
 		}
 		if gotRootElm {
 			sR = "root<" + pXP.XmlRoot.TagName + "> "

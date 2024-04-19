@@ -226,5 +226,6 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	//  It's XML, so crank thru it and we're done
 	// ===========================================
 	L.L.Dbg("Now passing off to DoAnalysis_xml: Peek: %+v", *pPeek) 
+	L.L.Warning("Now passing off to DoAnalysis_xml: Peek: %+v", *pPeek) 
 	return pPA, pPA.DoAnalysis_xml(pPeek, sCont)
 }
