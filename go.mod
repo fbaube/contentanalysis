@@ -9,7 +9,7 @@ require (
 	github.com/fbaube/fileutils v0.0.0-20240417095306-e58c9c3714c9
 	github.com/fbaube/mlog v0.0.0-20230904080411-cfac35fed413
 	github.com/fbaube/stringutils v0.0.0-20240326203406-bf4fec3db0ff
-	github.com/fbaube/xmlutils v0.0.0-20240417095348-51b71796b1db
+	github.com/fbaube/xmlutils v0.0.0-20240419171240-3c269a908cfd
 	github.com/gabriel-vasile/mimetype v1.4.3
 	golang.org/x/tools v0.20.0
 )
