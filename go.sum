@@ -76,6 +76,8 @@ github.com/fbaube/xmlutils v0.0.0-20240417095348-51b71796b1db h1:S1QgCt58BS83W58
 github.com/fbaube/xmlutils v0.0.0-20240417095348-51b71796b1db/go.mod h1:Za+S2ptbxwzKJekXNX2+wM3ubybYOcGlh9ZJGedjWqo=
 github.com/fbaube/xmlutils v0.0.0-20240419171240-3c269a908cfd h1:6h5Ng4mUwsV9ToaJXib/mBrS7/glEV3Hifvw/F5Zhb8=
 github.com/fbaube/xmlutils v0.0.0-20240419171240-3c269a908cfd/go.mod h1:Za+S2ptbxwzKJekXNX2+wM3ubybYOcGlh9ZJGedjWqo=
+github.com/fbaube/xmlutils v0.0.0-20240421123818-50b211574755 h1:fOs1IwJBJY9N/zWGv8Z6htqaHnaiVVP09mdYOCFA9g4=
+github.com/fbaube/xmlutils v0.0.0-20240421123818-50b211574755/go.mod h1:Za+S2ptbxwzKJekXNX2+wM3ubybYOcGlh9ZJGedjWqo=
 github.com/gabriel-vasile/mimetype v1.4.3 h1:in2uUcidCuFcDKtdcBxlR0rJ1+fsokWf+uqxgUFjbI0=
 github.com/gabriel-vasile/mimetype v1.4.3/go.mod h1:d8uq/6HKRL6CGdk+aubisF/M5GcPfT7nKyLpA0lbSSk=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
