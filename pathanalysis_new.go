@@ -58,7 +58,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===========================
 	if len(sCont) < 6 {
 		if sCont == "" {
-			L.L.Progress("NewPathAnalysis: skipping zero-length content")
+			L.L.Info("NewPathAnalysis: skipping zero-length content")
 		} else {
 			L.L.Warning("DNewPathnalysis: content too short (%d bytes)", len(sCont))
 		}
@@ -68,7 +68,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 		//    "content is too short (%d bytes) to analyse", len(sCont)))
 		return p, nil
 	}
-	L.L.Dbg("NewPathAnalysis: filext<%s> len<%d> beg<%s>",
+	L.L.Debug("NewPathAnalysis: filext<%s> len<%d> beg<%s>",
 		filext, len(sCont), sCont[:5])
 
 	// ========================
@@ -225,6 +225,6 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===========================================
 	//  It's XML, so crank thru it and we're done
 	// ===========================================
-	L.L.Dbg("NPA passing to DoAnalysis_xml: Peek: %+v", *pPeek) 
+	L.L.Debug("NPA passing to DoAnalysis_xml: Peek: %+v", *pPeek) 
 	return pPA, pPA.DoAnalysis_xml(pPeek, sCont)
 }

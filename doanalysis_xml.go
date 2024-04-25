@@ -18,7 +18,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	gotRootElm, tagsMsg := (pXP.ContentityBasics.CheckTopTags())
 	gotDoctype := (pXP.DoctypeRaw != "")
 	gotPreambl := (pXP.PreambleRaw != "")
-	L.L.Dbg("DoAnalysis_xml: raw: Dctp<%s> Prmbl<%s>",
+	L.L.Debug("DoAnalysis_xml: raw: Dctp<%s> Prmbl<%s>",
 		pXP.DoctypeRaw, pXP.PreambleRaw)
 	/* L.L.Warning("DoAnalysis_xml: raw: Dctp<%s> Prmbl<%s>",
 		pXP.DoctypeRaw, pXP.PreambleRaw) */
@@ -39,7 +39,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		if pXP.HasDTDstuff {
 			sDtd = "<DTD stuff> "
 		}
-		L.L.Progress("Is XML: found: %s%s%s%s", sP, sD, sR, sDtd)
+		L.L.Info("Is XML: found: %s%s%s%s", sP, sD, sR, sDtd)
 		//fmt.Printf("Is XML: found: %s%s%s%s \n", sP, sD, sR, sDtd)
 		if tagsMsg != "" {
 			L.L.Info("DoAnalysisXml: " + tagsMsg)
@@ -51,7 +51,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	var pParstPrmbl *XU.ParsedPreamble
 	var e error
 	if gotPreambl {
-		L.L.Dbg("(An.X) got: %s", pXP.PreambleRaw)
+		L.L.Debug("(An.X) got: %s", pXP.PreambleRaw)
 		pParstPrmbl, e = XU.ParsePreamble(pXP.PreambleRaw)
 		if e != nil {
 			// println("xm.peek: preamble failure in:", peek.RawPreamble)
@@ -62,7 +62,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	// ================================
 	//  Time to do some heavy lifting.
 	// ================================
-	L.L.Progress("(DoAnalysisXml) Now split the file")
+	L.L.Info("(DoAnalysisXml) Now split the file")
 	if sCont == "" { // pAR.PathProps.Raw == "" {
 		L.L.Error("(AF) XML has nil Raw")
 	}
@@ -90,9 +90,9 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 			L.L.Panic("FIXME:" + e.Error())
 		}
 		pAR.ParsedDoctype = pParstDoctp
-		L.L.Dbg("(AF) gotDT: MType: " + pAR.MType)
-		L.L.Dbg("(AF) gotDT: AnalysisRecord: " + pAR.String())
-		// L.L.Dbg("gotDT: DctpFlds: " + pParstDoctp.String())
+		L.L.Debug("(AF) gotDT: MType: " + pAR.MType)
+		L.L.Debug("(AF) gotDT: AnalysisRecord: " + pAR.String())
+		// L.L.Debug("gotDT: DctpFlds: " + pParstDoctp.String())
 		/* DBG
 		L.L.Warning("====")
 		L.L.Warning("Raw: %s", pXP.DoctypeRaw)
@@ -131,7 +131,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	// ==========================================
 	rutag := S.ToLower(pXP.XmlRoot.TagName)
 	IS_MAP := ("map" == pXP.XmlRoot.TagName)
-	L.L.Progress("(AF) XML without DOCTYPE: <%s> root<%s> MType<%s> isMap<%>",
+	L.L.Info("DoAnXMl: XML without DOCTYPE: <%s> root<%s> MType<%s> isMap<%>",
 		filext, rutag, pAR.MType, IS_MAP)
 	if pAR.MType == "" {
 	   L.L.Info("XML without DOCTYPE has no MType assigned yet")
@@ -153,7 +153,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		pAR.MType = "xml/???/" + rutag
 	}
 	// At this point, mt should be valid !
-	L.L.Dbg("(AF) Contyping: " + pAR.ContypingInfo.String())
+	L.L.Debug("(AF) Contyping: " + pAR.ContypingInfo.String())
 
 	// Now we should fill in all the detail fields.
 	pAR.XmlContype = "RootTagData"
@@ -169,7 +169,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	pAR.DitaContype = "TBS"
 
 	// L.L.Info("fu.af: MType<%s> xcntp<%s> ditaFlav<%s> ditaCntp<%s> DT<%s>",
-	L.L.Progress("(AF) final: MType<%s> xcntp<%s> dita:TBS DcTpFlds<%s>",
+	L.L.Debug("(AF) final: MType<%s> xcntp<%s> dita:TBS DcTpFlds<%s>",
 		pAR.MType, pAR.XmlContype, // pAnlRec.XmlPreambleFields,
 		// pAnlRec.DitaFlavor, pAnlRec.DitaContype,
 		pAR.ParsedDoctype)

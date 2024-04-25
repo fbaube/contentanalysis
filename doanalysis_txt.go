@@ -62,11 +62,11 @@ func (pAR *PathAnalysis) DoAnalysis_txt(sCont string) error {
 		pAR.Text.End = *CT.NewFilePosition(len(sCont))
 
 		pAR.MetaProps = ps
-		L.L.Dbg("(AF) Got YAML metadata: " + s2)
+		L.L.Debug("(AF) Got YAML metadata: " + s2)
 	}
 	// s := SU.NormalizeWhitespace(sCont) // pAR.PathProps.Raw)
 	// s = SU.TruncateTo(s, 56)
-	L.L.Dbg("|RAW|%.40s ...|END|", sCont)
+	L.L.Debug("|RAW|%.40s ...|END|", sCont)
 	// L.L.Okay("(AF) Success: detected non-XML")
 	return nil
 }
