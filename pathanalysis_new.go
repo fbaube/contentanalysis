@@ -45,9 +45,9 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	}
 	var sCont string
 	sCont = string(pFSI.TypedRaw.Raw)
-	filext := FP.Ext(pFSI.FPs.AbsFP.S())
+	filext := FP.Ext(pFSI.FPs.AbsFP)
 
-	// A trailing dot in the filename provides no filetype info.
+	// A trailing dot in the filename provides no filetype info
 	filext = FP.Ext(filext)
 	if filext == "." {
 		filext = ""
