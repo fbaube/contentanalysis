@@ -43,7 +43,11 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	if pFSI.IsDirlike() {
 	   return nil, nil
 	}
+	if !pFSI.IsFile() {
+	   return nil, nil
+	}
 	var sCont string
+	pFSI.LoadContents()
 	sCont = string(pFSI.TypedRaw.Raw)
 	filext := FP.Ext(pFSI.FPs.AbsFP)
 
