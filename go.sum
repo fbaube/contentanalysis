@@ -18,6 +18,10 @@ github.com/fbaube/fileutils v0.0.0-20240915100759-66a71cad8d09 h1:bvblxLEq+1p4YW
 github.com/fbaube/fileutils v0.0.0-20240915100759-66a71cad8d09/go.mod h1:Vm4xfXwqX66qu9L5wD8l0IA6LnDi/O+PtM1uXj0oRYI=
 github.com/fbaube/fileutils v0.0.0-20240918123803-07972037e4ed h1:ls055erVPs3+iMgjWSRohSKpU73kHltSnY+Rx/3rm/g=
 github.com/fbaube/fileutils v0.0.0-20240918123803-07972037e4ed/go.mod h1:mvliA493p+Pnz8nHAs+jLxsMATq2eKrxbvh83/iq5UI=
+github.com/fbaube/fileutils v0.0.0-20240922162036-97f1e87003b2 h1:XrCAaC3ttK0VnneyW9k1wLPbQJyWIXIl9BZqL4aSdcY=
+github.com/fbaube/fileutils v0.0.0-20240922162036-97f1e87003b2/go.mod h1:mvliA493p+Pnz8nHAs+jLxsMATq2eKrxbvh83/iq5UI=
+github.com/fbaube/fileutils v0.0.0-20240923141001-1088a2834cf6 h1:0gbu3pEhKTWJLoUbLWPLEbyhUjigDOz/fLC5FVNDOqM=
+github.com/fbaube/fileutils v0.0.0-20240923141001-1088a2834cf6/go.mod h1:mvliA493p+Pnz8nHAs+jLxsMATq2eKrxbvh83/iq5UI=
 github.com/fbaube/humanbytes v0.0.0-20240227103335-a0b11501ad0e h1:2lRZ3QxDYaZ9F7RXLSL3zugdmeQTGOrRddBk+RVTRY0=
 github.com/fbaube/humanbytes v0.0.0-20240227103335-a0b11501ad0e/go.mod h1:WUS3tn4t+FViNsl4VOqYiV51cJNIIeMjLI9fOfm+Ug8=
 github.com/fbaube/logutils v0.0.0-20240425064504-eb572963f0fc h1:y21oEpytLrjte0p6CuKWTYQWc9xux0ys6a/vABtEqGs=
@@ -30,6 +34,8 @@ github.com/fbaube/stringutils v0.0.0-20240326203406-bf4fec3db0ff h1:3TAKhiwkOIZo
 github.com/fbaube/stringutils v0.0.0-20240326203406-bf4fec3db0ff/go.mod h1:5GRMKxtq6rUel/Pwfr7VG0eHVBPITL1UCsHyGHhTo8U=
 github.com/fbaube/stringutils v0.0.0-20240918123723-de59284266dd h1:DLel1Qjrlij/H/aKc5tuzVdnvAuPot+FPufs5a4lZvE=
 github.com/fbaube/stringutils v0.0.0-20240918123723-de59284266dd/go.mod h1:a63D/7LDrHGRUqKtmKG9ZYIGco9iHJVrgzkNgxn7uUg=
+github.com/fbaube/stringutils v0.0.0-20240923132734-4299299a2f4d h1:0vtZZWaX3Vs9/4N1KUUkyVDMSFJU4T5YVwCezttglXw=
+github.com/fbaube/stringutils v0.0.0-20240923132734-4299299a2f4d/go.mod h1:45y1buj6hAF27oeACgRMSBJfV0uU6mmppnEaRftSy+g=
 github.com/fbaube/wasmutils v0.0.0-20231209183154-e25018375bc2 h1:c2o0/6fIdaGD9G84GUFg41qHYPWqfKO0HD8G9KLJQH4=
 github.com/fbaube/wasmutils v0.0.0-20231209183154-e25018375bc2/go.mod h1:Yv24ab7DbaTunolfMWqQVI0g8yCNFu8y5IHxLbwZ0ZE=
 github.com/fbaube/xmlutils v0.0.0-20240425064631-d7c56373bd9a h1:BBUKU9STuOJ20/fWJTvdxROGnKEo9eREMaG/A+cphPk=

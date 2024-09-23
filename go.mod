@@ -6,9 +6,9 @@ toolchain go1.23.1
 
 require (
 	github.com/fbaube/ctoken v0.0.0-20240918123605-d4f3b42f3fa7
-	github.com/fbaube/fileutils v0.0.0-20240918123803-07972037e4ed
+	github.com/fbaube/fileutils v0.0.0-20240923141001-1088a2834cf6
 	github.com/fbaube/mlog v0.0.0-20240425064535-3b89e3b28a76
-	github.com/fbaube/stringutils v0.0.0-20240918123723-de59284266dd
+	github.com/fbaube/stringutils v0.0.0-20240923132734-4299299a2f4d
 	github.com/fbaube/xmlutils v0.0.0-20240425064631-d7c56373bd9a
 	github.com/gabriel-vasile/mimetype v1.4.5
 	golang.org/x/tools v0.25.0

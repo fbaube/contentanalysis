@@ -2,6 +2,7 @@ package contentanalysis
 
 import (
 	"fmt"
+	"os"
 	"net/http"
 	FP "path/filepath"
 	S "strings"
@@ -39,16 +40,33 @@ import (
 // which to do anything productive or informative. 
 // .
 func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
+     	// println("NewPathAnalysis: Entering!")
      	// If it's not a file, GTFO
 	if pFSI.IsDirlike() {
+	   // println("NewPathAnalysis: dirlike")
 	   return nil, nil
 	}
 	if !pFSI.IsFile() {
+	   // println("NewPathAnalysis: not a file")
 	   return nil, nil
 	}
 	var sCont string
-	pFSI.LoadContents()
-	sCont = string(pFSI.TypedRaw.Raw)
+	if pFSI.TypedRaw != nil {
+	   // println("NewPathAnalysis: dupe pFSI.LoadContents?")
+	   }
+	elc := pFSI.LoadContents()
+	if elc != nil {
+	   pFSI.SetError(fmt.Errorf("LoadContents: %w", elc))
+	   return nil, &os.PathError{ Op:"LoadContents", Path:pFSI.FPs.CreationPath(), Err:elc }
+	   }
+	if pFSI.TypedRaw == nil {
+	   // println("NewPathAnalysis: failed pFSI.LoadContents")
+	   }
+	if pFSI.TypedRaw != nil {
+	   sCont = string(pFSI.TypedRaw.Raw)
+	   } else {
+	   // println("NewPathAnalysis: NO TypedRaw!")
+	   }
 	filext := FP.Ext(pFSI.FPs.AbsFP)
 
 	// A trailing dot in the filename provides no filetype info
