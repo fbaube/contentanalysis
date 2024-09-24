@@ -2,7 +2,7 @@ package contentanalysis
 
 import (
 	"fmt"
-	"os"
+	"io/fs"
 	"net/http"
 	FP "path/filepath"
 	S "strings"
@@ -57,7 +57,8 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	elc := pFSI.LoadContents()
 	if elc != nil {
 	   pFSI.SetError(fmt.Errorf("LoadContents: %w", elc))
-	   return nil, &os.PathError{ Op:"LoadContents", Path:pFSI.FPs.CreationPath(), Err:elc }
+	   return nil, &fs.PathError{ Op:"LoadContents",
+	   	  Path:pFSI.FPs.CreationPath(), Err:elc }
 	   }
 	if pFSI.TypedRaw == nil {
 	   // println("NewPathAnalysis: failed pFSI.LoadContents")
