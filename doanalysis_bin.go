@@ -14,14 +14,14 @@ func (pAR *PathAnalysis) DoAnalysis_bin() error {
 	m_contype := pAR.ContypingInfo.MimeTypeAsSnift
 	if S.HasPrefix(m_contype, "image/") {
 		det := S.TrimPrefix(m_contype, "image/")
-		pAR.MType += "img/"
+		pAR.MType += "img/" // append, not replace 
 		hasEPS := S.Contains(m_contype, "eps")
 		hasTXT := S.Contains(m_contype, "text") ||
 			S.Contains(m_contype, "txt")
 		if hasTXT || hasEPS {
 			// TODO
 			L.L.Warning("(AF) EPS/TXT confusion for MIME type: " + m_contype)
-			pAR.MType = "txt/img/??!"
+			pAR.MType = "txt/img/?eps"
 		} else {
 			pAR.MType += det
 			if !S.EqualFold(pAR.FileExt, "."+det) {
