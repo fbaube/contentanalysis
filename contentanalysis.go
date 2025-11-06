@@ -8,13 +8,13 @@ import (
 	S "strings"
 )
 
-type Doctype string
+type Doctype  string
 type MimeType string
 
-// PathAnalysis is the results of content analysis
+// ContentAnalysis is the results of content analysis
 // on the contents of a non-embedded [FSItem].
 // .
-type PathAnalysis struct { // this has has Raw
+type ContentAnalysis struct { // this has has Raw
 	// ContypingInfo is simple fields:
 	// FileExt MType MimeType's
 	XU.ContypingInfo
@@ -42,59 +42,59 @@ type PathAnalysis struct { // this has has Raw
 }
 
 // IsXML is true for all XML, including all HTML.
-func (p PathAnalysis) IsXML() bool {
-	s := p.RawType()
+func (pCA ContentAnalysis) IsXML() bool {
+	s := pCA.RawType()
 	return s == SU.Raw_type_XML || s == SU.Raw_type_HTML
 }
 
 // MarkupType returns an enum with values of SU.Raw_type_*
-func (p PathAnalysis) RawType() SU.Raw_type {
+func (pCA ContentAnalysis) RawType() SU.Raw_type {
 	// ======
      	//  HTML
 	// ======
 	// xml/HTML is an exceptional case
-	if S.HasPrefix(p.MType, "xml/html/") {
+	if S.HasPrefix(pCA.MType, "xml/html/") {
 		return SU.Raw_type_HTML
 	}
-	if S.HasPrefix(p.MimeType, "text/html") {
+	if S.HasPrefix(pCA.MimeType, "text/html") {
 		return SU.Raw_type_HTML
 	}
-	if S.HasPrefix(p.MimeType, "html/") {
+	if S.HasPrefix(pCA.MimeType, "html/") {
 		return SU.Raw_type_HTML
 	}
-	if S.HasPrefix(p.MType, "html/") {
+	if S.HasPrefix(pCA.MType, "html/") {
 		return SU.Raw_type_HTML
 	}
 	// ======
      	//  XML
 	// ======
-	if S.HasPrefix(p.MType, "xml/") {
+	if S.HasPrefix(pCA.MType, "xml/") {
 		return SU.Raw_type_XML
 	}
 	// ======
      	//  TEXT
 	//  (MD)
 	// ======
-	if S.HasPrefix(p.MType, "text/") ||
-		S.HasPrefix(p.MType, "txt/") ||
-		S.HasPrefix(p.MType, "md/") ||
-		S.HasPrefix(p.MType, "mkdn/") {
+	if S.HasPrefix(pCA.MType, "text/") ||
+		S.HasPrefix(pCA.MType, "txt/") ||
+		S.HasPrefix(pCA.MType, "md/") ||
+		S.HasPrefix(pCA.MType, "mkdn/") {
 		return SU.Raw_type_MKDN
 	}
 	// ======
      	//  Misc.
 	// ======
-	if S.HasPrefix(p.MType, "bin/") {
+	if S.HasPrefix(pCA.MType, "bin/") {
 		return SU.Raw_type_BIN // opaque
 	}
-	if S.HasPrefix(p.MType, "dir") || S.HasPrefix(p.MType, "DIR") {
+	if S.HasPrefix(pCA.MType, "dir") || S.HasPrefix(pCA.MType, "DIR") {
 		return SU.Raw_type_DIRLIKE 
 	}
 	// This is an unfortunate hack 
-	if p.MType == "" { 
+	if pCA.MType == "" { 
 		return SU.Raw_type_DIRLIKE 
 	}
 	L.L.Error("CntAns.PathAns.RawType: failed on: <%s|%s>",
-		p.MType, p.MimeType)
+		pCA.MType, pCA.MimeType)
 	return "" // SU.Raw_type_UNK (or OTHER?) 
 }

@@ -8,30 +8,30 @@ import (
 // DoAnalysis_bin doesn't do any further processing for binary, cos we
 // basically trust that the sniffed MIME type is sufficient, and return.
 // .
-func (pAR *PathAnalysis) DoAnalysis_bin() error {
+func (pCA *ContentAnalysis) DoAnalysis_bin() error {
 	// pAnlRec.MimeType = m_contype
-	pAR.MType = "bin/"
-	m_contype := pAR.ContypingInfo.MimeTypeAsSnift
+	pCA.MType = "bin/"
+	m_contype := pCA.ContypingInfo.MimeTypeAsSnift
 	if S.HasPrefix(m_contype, "image/") {
 		det := S.TrimPrefix(m_contype, "image/")
-		pAR.MType += "img/" // append, not replace 
+		pCA.MType += "img/" // append, not replace 
 		hasEPS := S.Contains(m_contype, "eps")
 		hasTXT := S.Contains(m_contype, "text") ||
 			S.Contains(m_contype, "txt")
 		if hasTXT || hasEPS {
 			// TODO
-			L.L.Warning("(AF) EPS/TXT confusion for MIME type: " + m_contype)
-			pAR.MType = "txt/img/?eps"
+			L.L.Warning("(CA) EPS/TXT confusion for MIME type: " + m_contype)
+			pCA.MType = "txt/img/?eps"
 		} else {
-			pAR.MType += det
-			if !S.EqualFold(pAR.FileExt, "."+det) {
-				L.L.Warning("Image: detMime<%s> filext<%s>", det, pAR.FileExt)
+			pCA.MType += det
+			if !S.EqualFold(pCA.FileExt, "."+det) {
+				L.L.Warning("Image: detMime<%s> filext<%s>", det, pCA.FileExt)
 			}
 		}
 	} else {
 		L.L.Warning("Image problem: mime<%s> filext<%s>",
-			pAR.MimeTypeAsSnift, pAR.FileExt)
+			pCA.MimeTypeAsSnift, pCA.FileExt)
 	}
-	// L.L.Okay("(AF) Success: detected BINARY")
+	// L.L.Okay("(CA) Success: detected BINARY")
 	return nil
 }

@@ -8,9 +8,9 @@ import (
 	S "strings"
 )
 
-func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
+func (pCA *ContentAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	var filext string
-	filext = pAR.FileExt
+	filext = pCA.FileExt
 	// ===============================
 	//  Set bool variables, including
 	//  supporting analysis by stdlib
@@ -63,12 +63,12 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	//  Time to do some heavy lifting.
 	// ================================
 	L.L.Info("(DoAnalysisXml) Now split the file")
-	if sCont == "" { // pAR.PathProps.Raw == "" {
-		L.L.Error("(AF) XML has nil Raw")
+	if sCont == "" { // pCA.PathProps.Raw == "" {
+		L.L.Error("(CA) XML has nil Raw")
 	}
-	pAR.ContentityBasics = pXP.ContentityBasics
-	// L.L.Warning("SKIPPING call to pAR.MakeXmlContentitySections")
-	// pAR.MakeXmlContentitySections()
+	pCA.ContentityBasics = pXP.ContentityBasics
+	// L.L.Warning("SKIPPING call to pCA.MakeXmlContentitySections")
+	// pCA.MakeXmlContentitySections()
 	/* more debugging
 	fmt.Printf("--> meta pos<%d>len<%d> text pos<%d>len<%d> \n",
 		pAnlRec.Meta.Beg.Pos, len(pAnlRec.MetaRaw()),
@@ -85,34 +85,34 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 		// We are here if we got a DOCTYPE; we also have a file extension,
 		// and we should have a root tag (or else the DOCTYPE makes no sense !)
 		var pParstDoctp *XU.ParsedDoctype
-		pParstDoctp, e = pAR.ContypingInfo.ParseDoctype(pXP.DoctypeRaw)
+		pParstDoctp, e = pCA.ContypingInfo.ParseDoctype(pXP.DoctypeRaw)
 		if e != nil {
 			L.L.Panic("FIXME:" + e.Error())
 		}
-		pAR.ParsedDoctype = pParstDoctp
-		L.L.Debug("(AF) gotDT: MType: " + pAR.MType)
-		L.L.Debug("(AF) gotDT: AnalysisRecord: " + pAR.String())
+		pCA.ParsedDoctype = pParstDoctp
+		L.L.Debug("(CA) gotDT: MType: " + pCA.MType)
+		L.L.Debug("(CA) gotDT: AnalysisRecord: " + pCA.String())
 		// L.L.Debug("gotDT: DctpFlds: " + pParstDoctp.String())
 		/* DBG
 		L.L.Warning("====")
 		L.L.Warning("Raw: %s", pXP.DoctypeRaw)
-		L.L.Warning("MTp: " + pAR.MType)
-		L.L.Warning("ARc: " + pAR.String())
+		L.L.Warning("MTp: " + pCA.MType)
+		L.L.Warning("ARc: " + pCA.String())
 		L.L.Warning("====")
 		*/
-		if pAR.MType == "" {
-			L.L.Panic("(AF) no MType, L103")
+		if pCA.MType == "" {
+			L.L.Panic("(CA) no MType, L103")
 		}
-		if pAR.MType == "" {
-			L.L.Panic("(AF) no MType, L106")
+		if pCA.MType == "" {
+			L.L.Panic("(CA) no MType, L106")
 		}
-		L.L.Okay("(AF) Success: got XML with DOCTYPE")
+		L.L.Okay("(CA) Success: got XML with DOCTYPE")
 		// HACK ALERT
-		if /* IS_MAP || */ S.HasSuffix(pAR.MType, "---") {
+		if /* IS_MAP || */ S.HasSuffix(pCA.MType, "---") {
 			rutag := S.ToLower(pXP.XmlRoot.TagName)
-			if pAR.MType == "xml/map/---" {
-				pAR.MType = "xml/map/" + rutag
-				L.L.Okay("(AF) Patched MType to: " + pAR.MType)
+			if pCA.MType == "xml/map/---" {
+				pCA.MType = "xml/map/" + rutag
+				L.L.Okay("(CA) Patched MType to: " + pCA.MType)
 			} else {
 				panic("MType ending in \"---\" not fixed")
 			}
@@ -123,7 +123,7 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	//  No DOCTYPE. Bummer.
 	// =====================
 	if !gotRootElm {
-		return fmt.Errorf("(AF) Got no XML root tag in file with ext <%s>", filext)
+		return fmt.Errorf("(CA) Got no XML root tag in file with ext <%s>", filext)
 	}
 	// ==========================================
 	//  Let's at least try to set the MType.
@@ -132,60 +132,60 @@ func (pAR *PathAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error {
 	rutag := S.ToLower(pXP.XmlRoot.TagName)
 	IS_MAP := ("map" == pXP.XmlRoot.TagName)
 	L.L.Info("DoAnXMl: XML without DOCTYPE: <%s> root<%s> MType<%s> isMap<%>",
-		filext, rutag, pAR.MType, IS_MAP)
-	if pAR.MType == "" {
+		filext, rutag, pCA.MType, IS_MAP)
+	if pCA.MType == "" {
 	   L.L.Info("XML without DOCTYPE has no MType assigned yet")
 	   }
 	// Do some easy cases
 	if rutag == "html" && (filext == ".html" || filext == ".htm") {
-		pAR.MType = "html/cnt/html5"
+		pCA.MType = "html/cnt/html5"
 	} else if rutag == "html" && S.HasPrefix(filext, ".xht") {
-		pAR.MType = "html/cnt/xhtml"
+		pCA.MType = "html/cnt/xhtml"
 	} else if SU.IsInSliceIgnoreCase(rutag, XU.DITArootElms) &&
 		SU.IsInSliceIgnoreCase(filext, XU.DITAtypeFileExtensions) {
-		pAR.MType = "xml/cnt/" + rutag
+		pCA.MType = "xml/cnt/" + rutag
 		if S.HasSuffix(rutag, "map") && S.HasSuffix(filext, "map") {
-			pAR.MType = "xml/map/" + rutag
+			pCA.MType = "xml/map/" + rutag
 		}
 	}
 	// pAnlRec.ContypingInfo = *pCntpg
-	if pAR.MType == "-/-/-" {
-		pAR.MType = "xml/???/" + rutag
+	if pCA.MType == "-/-/-" {
+		pCA.MType = "xml/???/" + rutag
 	}
 	// At this point, mt should be valid !
-	L.L.Debug("(AF) Contyping: " + pAR.ContypingInfo.String())
+	L.L.Debug("(CA) Contyping: " + pCA.ContypingInfo.String())
 
 	// Now we should fill in all the detail fields.
-	pAR.XmlContype = "RootTagData"
+	pCA.XmlContype = "RootTagData"
 
 	if pParstPrmbl != nil {
-		pAR.ParsedPreamble = pParstPrmbl
+		pCA.ParsedPreamble = pParstPrmbl
 	} else {
 		// SKIP
 		// pBA.XmlPreambleFields = XU.STD_PreambleFields
 	}
 	// pBA.DoctypeIsDeclared  =  true
-	pAR.DitaFlavor = "TBS"
-	pAR.DitaContype = "TBS"
+	pCA.DitaFlavor = "TBS"
+	pCA.DitaContype = "TBS"
 
 	// L.L.Info("fu.af: MType<%s> xcntp<%s> ditaFlav<%s> ditaCntp<%s> DT<%s>",
-	L.L.Debug("(AF) final: MType<%s> xcntp<%s> dita:TBS DcTpFlds<%s>",
-		pAR.MType, pAR.XmlContype, // pAnlRec.XmlPreambleFields,
+	L.L.Debug("(CA) final: MType<%s> xcntp<%s> dita:TBS DcTpFlds<%s>",
+		pCA.MType, pCA.XmlContype, // pAnlRec.XmlPreambleFields,
 		// pAnlRec.DitaFlavor, pAnlRec.DitaContype,
-		pAR.ParsedDoctype)
+		pCA.ParsedDoctype)
 	// println("--> fu.af: MetaRaw:", pAnlRec.MetaRaw())
 	// println("--> fu.af: TextRaw:", pAnlRec.TextRaw())
 
 	// HACK!
-	if pAR.MType == "" {
-		switch pAR.ContypingInfo.MimeTypeAsSnift { // m_contype {
+	if pCA.MType == "" {
+		switch pCA.ContypingInfo.MimeTypeAsSnift { // m_contype {
 		case "image/svg+xml":
-			pAR.MType = "xml/img/svg"
+			pCA.MType = "xml/img/svg"
 		}
-		if pAR.MType != "" {
-			L.L.Warning("(AF) Lamishly hacked the MType to: %s", pAR.MType)
+		if pCA.MType != "" {
+			L.L.Warning("(CA) Lamishly hacked the MType to: %s", pCA.MType)
 		}
 	}
-	L.L.Okay("(AF) Success: got XML without DOCTYPE")
+	L.L.Okay("(CA) Success: got XML without DOCTYPE")
 	return nil
 }

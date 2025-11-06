@@ -19,7 +19,7 @@ import (
 // <!ELEMENT  map     (topicmeta?, (topicref | keydef)*)  >
 // <!ELEMENT topicmeta (navtitle?, linktext?, data*) >
 
-// NewPathAnalysis is called only by NewContentityRecord(..).
+// NewContentAnalysis is called only by NewContentityRecord(..).
 // It has very different handling for XML content versus non-XML content.
 // Most of the function is making several checks for the presence of XML.
 // When a file is identified as XML, we have much more info available,
@@ -33,26 +33,26 @@ import (
 //     Markdown, and XML/HTML that lacks DOCTYPE)
 //
 // If the argument is "dirlike" (dir, symlink, etc.), 
-// then NewPathAnalysis returns (nil, nil).
+// then NewContentAnalysis returns (nil, nil).
 //
 // If the first argument "sCont" (the content) is less than six bytes,
 // return (nil, nil) to indicate that there is not enough content with
 // which to do anything productive or informative. 
 // .
-func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
-     	// println("NewPathAnalysis: Entering!")
+func NewContentAnalysis(pFSI *FU.FSItem) (*ContentAnalysis, error) {
+     	// println("NewContentAnalysis: Entering!")
      	// If it's not a file, GTFO
 	if pFSI.IsDirlike() {
-	   // println("NewPathAnalysis: dirlike")
+	   // println("NewContentAnalysis: dirlike")
 	   return nil, nil
 	}
 	if !pFSI.IsFile() {
-	   // println("NewPathAnalysis: not a file")
+	   // println("NewContentAnalysis: not a file")
 	   return nil, nil
 	}
 	var sCont string
 	if pFSI.TypedRaw != nil {
-	   // println("NewPathAnalysis: dupe pFSI.LoadContents?")
+	   // println("NewContentAnalysis: dupe pFSI.LoadContents?")
 	   }
 	elc := pFSI.LoadContents()
 	if elc != nil {
@@ -61,12 +61,12 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	   	  Path:pFSI.FPs.CreationPath(), Err:elc }
 	   }
 	if pFSI.TypedRaw == nil {
-	   // println("NewPathAnalysis: failed pFSI.LoadContents")
+	   // println("NewContentAnalysis: failed pFSI.LoadContents")
 	   }
 	if pFSI.TypedRaw != nil {
 	   sCont = string(pFSI.TypedRaw.Raw)
 	   } else {
-	   // println("NewPathAnalysis: NO TypedRaw!")
+	   // println("NewContentAnalysis: NO TypedRaw!")
 	   }
 	filext := FP.Ext(pFSI.FPs.AbsFP)
 
@@ -81,17 +81,17 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===========================
 	if len(sCont) < 6 {
 		if sCont == "" {
-			L.L.Info("NewPathAnalysis: skipping zero-length content")
+			L.L.Info("NewContentAnalysis: skipping zero-length content")
 		} else {
 			L.L.Warning("DNewPathnalysis: content too short (%d bytes)", len(sCont))
 		}
-		p := new(PathAnalysis)
+		p := new(ContentAnalysis)
 		p.FileExt = filext
 		// return nil, errors.New(fmt.Sprintf(
 		//    "content is too short (%d bytes) to analyse", len(sCont)))
 		return p, nil
 	}
-	L.L.Debug("NewPathAnalysis: filext<%s> len<%d> beg<%s>",
+	L.L.Debug("NewContentAnalysis: filext<%s> len<%d> beg<%s>",
 		filext, len(sCont), sCont[:5])
 
 	// ========================
@@ -139,17 +139,17 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	}
 	// =====================================
 	// INITIALIZE ANALYSIS RECORD:
-	// pAnlRec is *xmlutils.PathAnalysis
+	// pAnlRec is *xmlutils.ContentAnalysis
 	// is basically all of our analysis
 	// results, including ContypingInfo.
 	// Don't forget to set the content!
 	// (omitting this caused a lot of bugs)
 	// =====================================
-	var pPA *PathAnalysis
-	pPA = new(PathAnalysis)
-	pPA.FileExt = filext
-	pPA.MimeType = stdlib_contype // Junk this ?
-	pPA.MimeTypeAsSnift = contype
+	var pCA *ContentAnalysis
+	pCA = new(ContentAnalysis)
+	pCA.FileExt = filext
+	pCA.MimeType = stdlib_contype // Junk this ?
+	pCA.MimeTypeAsSnift = contype
 	// ===========================
 	//  Check for & handle BINARY
 	// ===========================
@@ -172,7 +172,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 		if cheatYaml || cheatXml || cheatHtml {
 			L.L.Error("NPA: both is-Binary & is-Yaml/Xml")
 		}
-		return pPA, pPA.DoAnalysis_bin()
+		return pCA, pCA.DoAnalysis_bin()
 	}
 	// ======================================
 	// We have text, but it might not be XML.
@@ -220,7 +220,7 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// ===============================
 	if pPeek.HasDTDstuff && SU.IsInSliceIgnoreCase(
 		filext, XU.DTDtypeFileExtensions) {
-		return pPA, pPA.DoAnalysis_sch()
+		return pCA, pCA.DoAnalysis_sch()
 	}
 	// Check for pathological cases
 	if xmlParsingFailed && mIsXml { // (hIsXml || mIsXml) {
@@ -239,15 +239,15 @@ func NewPathAnalysis(pFSI *FU.FSItem) (*PathAnalysis, error) {
 	// =============================
 	if xmlParsingFailed || !gotSomeXml {
 		if cheatXml {
-			// L.L.Panic("(AF) both non-xml & xml")
+			// L.L.Panic("(CA) both non-xml & xml")
 			L.L.Panic(fmt.Sprintf("WHOOPS xmlParsingFailed<%t> gotSomeXml<%t> \n",
 				xmlParsingFailed, gotSomeXml))
 		}
-		return pPA, pPA.DoAnalysis_txt(sCont)
+		return pCA, pCA.DoAnalysis_txt(sCont)
 	}
 	// ===========================================
 	//  It's XML, so crank thru it and we're done
 	// ===========================================
 	L.L.Debug("NPA passing to DoAnalysis_xml: Peek: %+v", *pPeek) 
-	return pPA, pPA.DoAnalysis_xml(pPeek, sCont)
+	return pCA, pCA.DoAnalysis_xml(pPeek, sCont)
 }
