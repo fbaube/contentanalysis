@@ -12,7 +12,7 @@ type Doctype  string
 type MimeType string
 
 // ContentAnalysis is the results of content analysis
-// on the contents of a non-embedded [FSItem].
+// on the contents of a non-embedded [FSObject].
 // .
 type ContentAnalysis struct { // this has has Raw
 	// ContypingInfo is simple fields:

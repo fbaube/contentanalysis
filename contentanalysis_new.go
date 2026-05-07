@@ -39,36 +39,31 @@ import (
 // return (nil, nil) to indicate that there is not enough content with
 // which to do anything productive or informative. 
 // .
-func NewContentAnalysis(pFSI *FU.FSItem) (*ContentAnalysis, error) {
+func NewContentAnalysis(pFSO *FU.FSObject) (*ContentAnalysis, error) {
      	// println("NewContentAnalysis: Entering!")
      	// If it's not a file, GTFO
-	if pFSI.IsDirlike() {
+	if pFSO.IsDirlike() {
 	   // println("NewContentAnalysis: dirlike")
 	   return nil, nil
 	}
-	if !pFSI.IsFile() {
+	if !pFSO.IsFile() {
 	   // println("NewContentAnalysis: not a file")
 	   return nil, nil
 	}
 	var sCont string
-	if pFSI.TypedRaw != nil {
-	   // println("NewContentAnalysis: dupe pFSI.LoadContents?")
+	if pFSO.TypedRaw != nil {
+	   // println("NewContentAnalysis: dupe pFSO.LoadContents?")
 	   }
-	elc := pFSI.LoadContents()
+	sCont, elc := pFSO.Contents()
 	if elc != nil {
-	   pFSI.SetError(fmt.Errorf("LoadContents: %w", elc))
+	   pFSO.SetError(fmt.Errorf("LoadContents: %w", elc))
 	   return nil, &fs.PathError{ Op:"LoadContents",
-	   	  Path:pFSI.FPs.CreationPath(), Err:elc }
+	   	  Path:pFSO.FPs.CreationPath(), Err:elc }
 	   }
-	if pFSI.TypedRaw == nil {
-	   // println("NewContentAnalysis: failed pFSI.LoadContents")
+	if sCont == "" {
+	   // println("NewContentAnalysis: failed pFSO.Contents")
 	   }
-	if pFSI.TypedRaw != nil {
-	   sCont = string(pFSI.TypedRaw.Raw)
-	   } else {
-	   // println("NewContentAnalysis: NO TypedRaw!")
-	   }
-	filext := FP.Ext(pFSI.FPs.AbsFP)
+	filext := FP.Ext(pFSO.FPs.AbsFP)
 
 	// A trailing dot in the filename provides no filetype info
 	filext = FP.Ext(filext)
