@@ -58,7 +58,7 @@ func NewContentAnalysis(pFSO *FU.FSObject) (*ContentAnalysis, error) {
 	if elc != nil {
 	   pFSO.SetError(fmt.Errorf("LoadContents: %w", elc))
 	   return nil, &fs.PathError{ Op:"LoadContents",
-	   	  Path:pFSO.FPs.CreationPath(), Err:elc }
+	   	  Path:pFSO.FPs.CreatPath(), Err:elc }
 	   }
 	if sCont == "" {
 	   // println("NewContentAnalysis: failed pFSO.Contents")
