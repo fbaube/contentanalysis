@@ -181,9 +181,13 @@ func (pCA *ContentAnalysis) DoAnalysis_xml(pXP *XU.XmlPeek, sCont string) error 
 		switch pCA.ContypingInfo.MimeTypeAsSnift { // m_contype {
 		case "image/svg+xml":
 			pCA.MType = "xml/img/svg"
+		case "image/xml":
+			if pCA.FileExt == ".svg" {	
+			   pCA.MType = "xml/img/svg"
+			   }
 		}
 		if pCA.MType != "" {
-			L.L.Warning("(CA) Lamishly hacked the MType to: %s", pCA.MType)
+			L.L.Info("Hacked MType from image/[svg+]xml to %s", pCA.MType)
 		}
 	}
 	L.L.Okay("(CA) Success: got XML without DOCTYPE")

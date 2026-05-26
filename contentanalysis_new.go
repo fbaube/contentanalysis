@@ -128,11 +128,17 @@ func NewContentAnalysis(pFSO *FU.FSObject) (*ContentAnalysis, error) {
 	// ===========================
 	//  Warn if they do not agree
 	// ===========================
-	if stdlib_contype != contype {
-		L.L.Warning("NPA<%s>: MIME type: lib_3p<%s>OK?, stdlib<%s>Bad?",
+	if stdlib_contype == contype {
+	   L.L.Info("filext<%s>: MIME type: snift-as: %s", filext, contype)
+	 } else 
+	   if filext == ".svg" &&
+	      S.HasSuffix(contype, "/svg+xml") &&
+	      S.HasSuffix(stdlib_contype, "/xml") {
+		 	  stdlib_contype = S.TrimSuffix(
+			  stdlib_contype, "/xml") + "/svg+xml"
+	 } else {
+	   L.L.Warning("filext<%s>: MIME type: lib_3p<%s>OK?, stdlib<%s>Bad?",
 			filext, contype, stdlib_contype)
-	} else {
-	  L.L.Info("NPA<%s>: MIME type: snift-as: %s", filext, contype)
 	}
 	// =====================================
 	// INITIALIZE ANALYSIS RECORD:
