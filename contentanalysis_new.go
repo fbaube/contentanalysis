@@ -108,6 +108,7 @@ func NewContentAnalysis(pFSO *FU.FSObject) (*ContentAnalysis, error) {
 	contypeData = mimetype.Detect([]byte(sCont))
 	contype = contypeData.String()
 	contype = S.TrimSuffix(contype, "; charset=utf-8")
+	contype = S.TrimSuffix(contype, "; charset=UTF-8")
 	if S.Contains(contype, ";") {
 		L.L.Warning("Content type from lib_3p " +
 			"(still) has a semicolon: " + contype)
@@ -119,6 +120,7 @@ func NewContentAnalysis(pFSO *FU.FSObject) (*ContentAnalysis, error) {
 	var stdlib_contype string
 	stdlib_contype = http.DetectContentType([]byte(sCont))
 	stdlib_contype = S.TrimSuffix(stdlib_contype, "; charset=utf-8")
+	stdlib_contype = S.TrimSuffix(stdlib_contype, "; charset=UTF-8")
 	if S.Contains(stdlib_contype, ";") {
 		L.L.Warning("Content type from stdlib " +
 			"(still) has a semicolon: " + stdlib_contype)
